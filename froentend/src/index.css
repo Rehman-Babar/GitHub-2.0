@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.4)),url("./component/images/bg.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-  }
+body {
+	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4)), url("./component/images/bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
 
 ::-webkit-scrollbar{
     width: 8px;
@@ -25,3 +25,9 @@ body{
     background: #242424;
 }
 
+@layer components {
+    .bg-glass{
+        @apply bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 
+		hover:bg-gray-600/10 border-gray-800 text-white border
+    }
+}
