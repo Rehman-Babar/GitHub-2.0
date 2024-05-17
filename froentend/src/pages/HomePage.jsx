@@ -14,17 +14,14 @@ const HomePage = () => {
   const getUserProfileAndRepos = useCallback( async (username="Rehman-Babar") => {
     setLoading(true)
     try {
-      const userRes = await fetch(`https://api.github.com/users/${username}`,{
-        headers:{
-          authorization:`token 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`,
-        }
-      });
-      const userProfile = await userRes.json();
+      const res = await fetch(`http://localhost:5000/api/users/profile/${username}`);
+      const { repos, userProfile } = await res.json();
+      
+      repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+
       setUserProfile(userProfile);
-      const userRepos = await fetch(userProfile.repos_url);
-      const userRepo = await userRepos.json();
-      userRepo.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      setRepos(userRepo);
+      setRepos(repos);
+
       return {userProfile, repos}
     } catch (error) {
       toast.error(error.message)
@@ -44,19 +41,11 @@ const HomePage = () => {
 		setRepos([]);
 		setUserProfile(null);
 
-		// const { userProfile} = await getUserProfileAndRepos(username);
-		// setUserProfile(userProfile);
-    const userRes = await fetch(`https://api.github.com/users/${username}`,{
-        headers:{
-          authorization:`token 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`,
-        }
-      });
-      const userProfile = await userRes.json();
-      setUserProfile(userProfile);
-      const searchRepos = await fetch(userProfile.repos_url)
+		const { userProfile, repos} = await getUserProfileAndRepos(username);
 
-      const searchRepo = await searchRepos.json();
-      setRepos(searchRepo);
+		setUserProfile(userProfile);
+    setRepos(repos);
+
 		setLoading(false);
     setSortType("resent")
 	};
