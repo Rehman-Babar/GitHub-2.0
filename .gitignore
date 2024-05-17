@@ -5,10 +5,10 @@
 /.pnp
 dist
 .pnp.js
-
+node_modules
 # testing
 /coverage
-
+.env
 # production
 /build
 
