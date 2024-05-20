@@ -1,3 +1,5 @@
+import {User} from '../models/user.models.js'
+
 export const getUserProfileAndRepos = async(req,res) => {
     const {username} = req.params;
 
@@ -21,3 +23,38 @@ export const getUserProfileAndRepos = async(req,res) => {
         res.status(500).json({error:error.message})
     }
 };
+
+export const likeProfile =async (req, res) => {
+    const {username} = req.params;
+    try {
+        const user = await User.findById(req.user._id.toString()); // that is us. that is currently lotggedin
+        const userToLike= await User.findOne({username}) 
+        if(!userToLike){
+            return res.status(404).json({error:"User is not member to this app."})
+        }
+        if(!user){
+            return res.status(404).json({error:"Please login first to like a profile."})
+        }
+        if(user.likedProfiles.includes(userToLike.username)) {
+            return res.status(200).json({error:"User already Liked"})
+        } 
+        userToLike.likedBy.push({username:user.username, avatarUrl:user.avatarUrl, likedDate:Date.now()})
+        user.likedProfiles.push(userToLike.username)
+
+        await Promise.all([user.save(), userToLike.save()]);
+        res.status(200).json({message:"User liked"})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:error.message})
+    }
+} 
+
+export const getlikes = async(req, res) => {
+    try {
+        const user = await User.findById(req.user._id.toString())
+        res.status(200).json({likedBy:user?.likedBy})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:error.message})
+    }
+}

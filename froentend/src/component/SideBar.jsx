@@ -5,9 +5,12 @@ import { FaHeart } from 'react-icons/fa'
 import {MdEditDocument, MdOutlineExplore} from 'react-icons/md';
 import {PiSignInBold} from 'react-icons/pi';
 import Logout from './Logout';
+import {useAuthContext} from '../context/AuthContext.jsx'
 
 const SideBar = () => {
-  const AuthUser = true;
+	const { authUser } = useAuthContext();
+
+
   return (
   <aside className='flex flex-col items-center min-w-12 sm:w-16 sticky top-0 left-0 h-screen py-8 overflow-y-auto border-r bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 
 		hover:bg-gray-600/10 border-gray-800 text-white'>
@@ -23,7 +26,7 @@ const SideBar = () => {
 					<IoHomeSharp size={20} />
 				</Link>
         {
-          AuthUser && (
+          authUser && (
             <Link
 						to='/likes'
 						className='p-1.5 flex justify-center transition-colors duration-200 rounded-lg hover:bg-gray-800'
@@ -32,7 +35,7 @@ const SideBar = () => {
 					</Link>
           )
         }
-        {AuthUser && (
+        {authUser && (
 					<Link
 						to='/explore'
 						className='p-1.5  flex justify-center transition-colors duration-200 rounded-lg hover:bg-gray-800'
@@ -40,7 +43,7 @@ const SideBar = () => {
 						<MdOutlineExplore size={25} />
 					</Link>
 				)}
-        {!AuthUser && (
+        {!authUser && (
 					<Link
 						to='/login'
 						className='p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg hover:bg-gray-800'
@@ -49,7 +52,7 @@ const SideBar = () => {
 					</Link>
 				)}
 
-				{!AuthUser && (
+				{!authUser && (
 					<Link
 						to='/signup'
 						className='p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg hover:bg-gray-800'
@@ -57,7 +60,7 @@ const SideBar = () => {
 						<MdEditDocument size={25} />
 					</Link>
 				)}
-        {AuthUser && (
+        {authUser && (
 					<div className='flex flex-col gap-2 mt-auto'>
 						<Logout />
 					</div>

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+// import Spinner from "./Spinner";
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSearch, loading }) => {
 	const [username, setUsername] = useState('');
 
 	return (
@@ -26,6 +27,7 @@ const Search = ({ onSearch }) => {
 					type='submit'
 					className='text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  bg-gradient-to-r from-cyan-900 to-blue-900 hover:scale-95 active:scale-90 transition-all duration-300'
 				>
+					{/* {loading ? <Spinner/> : "Search"} */}
 					Search
 				</button>
 			</div>
