@@ -32,9 +32,9 @@ app.use("/api/users", userRoutes)
 app.use("/api/explore", exploreRoutes)
 
 
-app.use(express.static(path.join(__dirname, "/froentend/build")))
+app.use(express.static(path.join(__dirname, "/frontend/build")))
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "froentend", "build", "index.html"))
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"))
 })
 app.listen(port, () => {
     console.log(`server started on http://localhost:${port}`);
