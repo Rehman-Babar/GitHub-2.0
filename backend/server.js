@@ -36,6 +36,9 @@ app.use(express.static(path.join(__dirname, "/frontend/build")))
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html"))
 })
+app.get("/test", (req, res) => {
+    res.send("Hello World")
+})
 app.listen(port, () => {
     console.log(`server started on http://localhost:${port}`);
     Connect_MONGODB()
