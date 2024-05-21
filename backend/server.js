@@ -15,7 +15,7 @@ import { Connect_MONGODB } from './DB_Connection/mongoDb.js';
 dotenv.config();
 
 const app = express();
-const port = 5000 || process.env.PORT;
+const port =process.env.PORT || 5000;
 const __dirname = path.resolve();
 console.log( "dirname", __dirname);
 
